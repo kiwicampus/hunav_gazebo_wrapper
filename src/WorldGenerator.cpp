@@ -84,7 +84,7 @@ void WorldGenerator::readPluginParams() {
       this->declare_parameter<std::string>("robot_name", std::string("robot"));
   plug_global_frame_ = this->declare_parameter<std::string>(
       "global_frame_to_publish", std::string("map"));
-  this->declare_parameter("ignore_models");
+  this->declare_parameter("ignore_models", std::string());
   rclcpp::Parameter ig_models = this->get_parameter("ignore_models");
   std::string models = ig_models.as_string();
   RCLCPP_INFO(this->get_logger(), "Ignore_models string: %s", models.c_str());
@@ -193,13 +193,15 @@ void WorldGenerator::getAgentsService(
 bool WorldGenerator::processXML() {
   // std::cout << base_world_ << std::endl;
 
-  std::string skin_filename[] = {"elegant_man.dae", "casual_man.dae", "elegant_woman.dae",
-                                 "regular_man.dae", "worker_man.dae", "walk.dae", "walk-green.dae",
-                                 "walk-blue.dae", "walk-red.dae", "stand.dae"};
+  std::string skin_filename[] = {"elegant_man.dae",   "casual_man.dae",
+                                 "elegant_woman.dae", "regular_man.dae",
+                                 "worker_man.dae",    "walk.dae",
+                                 "walk-green.dae",    "walk-blue.dae",
+                                 "walk-red.dae",      "stand.dae"};
   std::string animation_filename[] = {
       "07_01-walk.bvh",         "69_02_walk_forward.bvh",
-      "137_28-normal_wait.bvh",     "142_01-walk_childist.bvh",
-      "07_04-slow_walk.bvh",   "142_08-walk_happy.bvh",
+      "137_28-normal_wait.bvh", "142_01-walk_childist.bvh",
+      "07_04-slow_walk.bvh",    "142_08-walk_happy.bvh",
       "142_17-walk_scared.bvh", "17_01-walk_with_anger.bvh"};
 
   // load the base world file
@@ -275,7 +277,6 @@ bool WorldGenerator::processXML() {
       rtur = phy->FirstChildElement("real_time_update_rate");
     }
     rtur->SetText(100);
-
   }
 
   // CREATE PLUGIN TAG

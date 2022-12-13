@@ -46,13 +46,14 @@ ament_target_dependencies(HuNavPlugin
   geometry_msgs
   tf2 
   tf2_geometry_msgs
+  tf2_ros
 ) 
 ament_export_libraries(HuNavPlugin)
 target_link_libraries(HuNavPlugin ${GAZEBO_LIBRARIES}) #${ignition-common3_LIBRARIES}
 
 
 add_executable(hunav_gazebo_world_generator src/WorldGenerator.cpp)
-ament_target_dependencies(hunav_gazebo_world_generator rclcpp hunav_msgs geometry_msgs tinyxml2_vendor)
+ament_target_dependencies(hunav_gazebo_world_generator rclcpp hunav_msgs geometry_msgs tinyxml2_vendor tf2 tf2_ros tf2_geometry_msgs)
 target_link_libraries(hunav_gazebo_world_generator ${TINYXML2_LIBRARY})
 
 install(TARGETS hunav_gazebo_world_generator
