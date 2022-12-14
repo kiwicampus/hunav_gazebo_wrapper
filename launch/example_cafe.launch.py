@@ -20,7 +20,7 @@ def generate_launch_description():
 
     # to activate the use of nvidia gpu
     use_nvidia_gpu = [
-        '__NV_PRIME_RENDER_OFFLOAD=1 ',
+        '__NV_PRIME_RENDER_OFFLOAD=0 ',
         '__GLX_VENDOR_LIBRARY_NAME=nvidia ',
     ]
 
@@ -135,7 +135,6 @@ def generate_launch_description():
 
     # Gazebo server
     gzserver_cmd = [
-        use_nvidia_gpu,
         'gzserver ',
         #'--pause ',
          world_path, 
@@ -148,7 +147,6 @@ def generate_launch_description():
 
     # Gazebo client
     gzclient_cmd = [
-        use_nvidia_gpu,
         'gzclient',
         _boolean_command('verbose'), ' ',
     ]
@@ -248,7 +246,7 @@ def generate_launch_description():
         description='list of Gazebo models that the agents should ignore as obstacles as the ground_plane. Indicate the models with a blank space between them'
     )
     declare_arg_verbose = DeclareLaunchArgument(
-        'verbose', default_value='false',
+        'verbose', default_value='true',
         description='Set "true" to increase messages written to terminal.'
     )
     
